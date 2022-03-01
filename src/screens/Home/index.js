@@ -1,92 +1,185 @@
 import {
-  Text,
-  Image,
-  TextInput,
-  KeyboardAvoidingView,
   ScrollView,
+  View,
+  Text,
+  ImageBackground,
+  FlatList,
   TouchableOpacity,
+  Image,
 } from 'react-native';
-import React, {useState} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 
-const App = ({navigation}) => {
-  const [input, setInput] = useState('');
-  const [phone, setPhone] = useState('');
-  const onChangeTextHandler = text => {
-    setInput(text);
+import {allVehicle} from '../../modules/vehicles';
+import styles from '../../styles/Home';
+
+console.log(process.env.API_REACT_NATIVE);
+const images = process.env.API_REACT_NATIVE + 'vehicles';
+
+const Home = ({navigation}) => {
+  // const [popular, setPopular] = useState([]);
+  const [cars, setCars] = useState([]);
+  const [motorbikes, setMotorbikes] = useState([]);
+  const [bikes, setBikes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // console.log('car', vehicles);
+
+  const getVehicleType = () => {
+    allVehicle()
+      .then(
+        axios.spread((...res) => {
+          setIsLoading(true);
+          console.log('cek', res[0].data.result.data[0].images);
+          // setPopular(res[0].data.result.data);
+          setCars(res[0].data.result.data);
+          setMotorbikes(res[1].data.result.data);
+          setBikes(res[2].data.result.data);
+        }),
+      )
+      .catch(err => console.log(err));
   };
-  const onPhoneNumberChange = text => {
-    const re = /^\d{1,}$/g;
-    if (re.test(text)) {
-      return setPhone(text);
-    }
-    // error handling
-  };
-  const onPressInHandler = () => {
-    console.log('in');
-  };
-  const onPressOutHandler = () => {
-    console.log('out');
-  };
-  const onLongPressHandler = () => {
-    console.log('long');
-  };
+
+  useEffect(() => {
+    getVehicleType();
+  }, []);
   return (
     <ScrollView>
-      <TouchableOpacity
-        onPressIn={onPressInHandler}
-        onPressOut={onPressOutHandler}
-        onLongPress={onLongPressHandler}
-        onPress={async () => {
-          try {
-            await AsyncStorage.removeItem('text-input');
+      <ImageBackground
+        source={require('../../assets/bg-home.png')}
+        style={styles.jumbotron}
+      />
+      <View style={styles.imageWrapper}>
+        <Text style={styles.title}>Cars</Text>
+        <Text
+          style={styles.more}
+          onPress={() => {
             const param = {
-              id: 1,
-              firstName: 'Fakhri',
-              lastName: 'Ridho',
-              profile:
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUDCIqUOBzvKzd-j6EqpcslaIJxwisqrr3Ug&usqp=CAU',
+              type: 'Cars',
             };
-            navigation.navigate('Profile', param);
-          } catch (err) {
-            console.error(err);
-          }
-        }}
-        style={{height: 50, width: 200, borderColor: '#000', borderWidth: 2}}>
-        <Text>Go To Profile</Text>
-      </TouchableOpacity>
-      <Image
-        style={{width: 200, height: 200}}
-        source={{
-          uri: 'https://reactnative.dev/img/tiny_logo.png',
-        }}
-      />
-      <Image
-        style={{width: 200, height: 200}}
-        source={require('../../assets/bg-register.png')}
-      />
-      <Image
-        style={{width: 200, height: 200}}
-        source={{
-          uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg==',
-        }}
-      />
-      <KeyboardAvoidingView>
-        <Text>{input}</Text>
-        <TextInput
-          style={{borderColor: '#000', borderWidth: 2}}
-          value={input}
-          onChangeText={onChangeTextHandler}
+            navigation.navigate('Category', param);
+          }}>
+          View More >
+        </Text>
+      </View>
+      {cars.length > 0 && isLoading ? (
+        <FlatList
+          data={cars}
+          horizontal={true}
+          renderItem={({item: vehicles}) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  const param = {
+                    id: vehicles.id,
+                  };
+                  navigation.navigate('Detail', param);
+                }}>
+                <Image
+                  source={{
+                    uri: `${process.env.API_REACT_NATIVE}`,
+                  }}
+                  style={styles.card}
+                />
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={vehicles => vehicles.id}
         />
-        <Text>{phone}</Text>
-        <TextInput
-          style={{borderColor: '#000', borderWidth: 2}}
-          placeholder="No Telp."
-          onChangeText={onPhoneNumberChange}
+      ) : (
+        <Image
+          source={require('../../assets/cars.gif')}
+          style={styles.loading}
         />
-      </KeyboardAvoidingView>
+      )}
+      <View style={styles.imageWrapper}>
+        <Text style={styles.title}>Motorbike</Text>
+        <Text
+          style={styles.more}
+          onPress={() => {
+            const param = {
+              type: 'Cars',
+            };
+            navigation.navigate('Category', param);
+          }}>
+          View More >
+        </Text>
+      </View>
+      {cars.length > 0 && isLoading ? (
+        <FlatList
+          data={cars}
+          horizontal={true}
+          renderItem={({item: vehicles}) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  const param = {
+                    id: vehicles.id,
+                  };
+                  navigation.navigate('Detail', param);
+                }}>
+                <Image
+                  source={{
+                    uri: `${process.env.API_REACT_NATIVE}`,
+                  }}
+                  style={styles.card}
+                />
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={vehicles => vehicles.id}
+        />
+      ) : (
+        <Image
+          source={require('../../assets/cars.gif')}
+          style={styles.loading}
+        />
+      )}
+      <View style={styles.imageWrapper}>
+        <Text style={styles.title}>Bike</Text>
+        <Text
+          style={styles.more}
+          onPress={() => {
+            const param = {
+              type: 'Cars',
+            };
+            navigation.navigate('Category', param);
+          }}>
+          View More >
+        </Text>
+      </View>
+      {cars.length > 0 && isLoading ? (
+        <FlatList
+          data={cars}
+          horizontal={true}
+          renderItem={({item: vehicles}) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  const param = {
+                    id: vehicles.id,
+                  };
+                  navigation.navigate('Detail', param);
+                }}>
+                <Image
+                  source={{
+                    uri: `${process.env.API_REACT_NATIVE}`,
+                  }}
+                  style={styles.card}
+                />
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={vehicles => vehicles.id}
+        />
+      ) : (
+        <Image
+          source={require('../../assets/cars.gif')}
+          style={styles.loading}
+        />
+      )}
     </ScrollView>
   );
 };
 
-export default App;
+export default Home;

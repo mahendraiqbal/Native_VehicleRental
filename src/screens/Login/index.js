@@ -29,7 +29,7 @@ const Login = ({navigation}) => {
       const result = await login(body);
       console.log(body);
       dispatch(loginAction(result.data.result.token));
-      navigation.navigate('Home');
+      navigation.navigate('BotTab');
     } catch (error) {
       console.log(error);
     }
