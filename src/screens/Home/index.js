@@ -13,15 +13,12 @@ import axios from 'axios';
 import {allVehicle} from '../../modules/vehicles';
 import styles from '../../styles/Home';
 
-console.log(process.env.API_REACT_NATIVE);
-const images = process.env.API_REACT_NATIVE + 'vehicles';
-
 const Home = ({navigation}) => {
   // const [popular, setPopular] = useState([]);
   const [cars, setCars] = useState([]);
   const [motorbikes, setMotorbikes] = useState([]);
   const [bikes, setBikes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isWait, setIsWait] = useState(false);
 
   // console.log('car', vehicles);
 
@@ -29,8 +26,8 @@ const Home = ({navigation}) => {
     allVehicle()
       .then(
         axios.spread((...res) => {
-          setIsLoading(true);
-          console.log('cek', res[0].data.result.data[0].images);
+          setIsWait(true);
+          console.log('cek', res[0].data.result.data);
           // setPopular(res[0].data.result.data);
           setCars(res[0].data.result.data);
           setMotorbikes(res[1].data.result.data);
@@ -52,7 +49,7 @@ const Home = ({navigation}) => {
       <View style={styles.imageWrapper}>
         <Text style={styles.title}>Cars</Text>
         <Text
-          style={styles.more}
+          style={styles.moreDetail}
           onPress={() => {
             const param = {
               type: 'Cars',
@@ -62,7 +59,7 @@ const Home = ({navigation}) => {
           View More >
         </Text>
       </View>
-      {cars.length > 0 && isLoading ? (
+      {cars.length > 0 && isWait ? (
         <FlatList
           data={cars}
           horizontal={true}
@@ -76,10 +73,8 @@ const Home = ({navigation}) => {
                   navigation.navigate('Detail', param);
                 }}>
                 <Image
-                  source={{
-                    uri: `${process.env.API_REACT_NATIVE}`,
-                  }}
-                  style={styles.card}
+                  source={require('../../assets/defaultVehicle.jpg')}
+                  style={styles.cardImage}
                 />
               </TouchableOpacity>
             );
@@ -95,19 +90,19 @@ const Home = ({navigation}) => {
       <View style={styles.imageWrapper}>
         <Text style={styles.title}>Motorbike</Text>
         <Text
-          style={styles.more}
+          style={styles.moreDetail}
           onPress={() => {
             const param = {
-              type: 'Cars',
+              type: 'Motorbike',
             };
             navigation.navigate('Category', param);
           }}>
           View More >
         </Text>
       </View>
-      {cars.length > 0 && isLoading ? (
+      {motorbikes.length > 0 && isWait ? (
         <FlatList
-          data={cars}
+          data={motorbikes}
           horizontal={true}
           renderItem={({item: vehicles}) => {
             return (
@@ -119,10 +114,8 @@ const Home = ({navigation}) => {
                   navigation.navigate('Detail', param);
                 }}>
                 <Image
-                  source={{
-                    uri: `${process.env.API_REACT_NATIVE}`,
-                  }}
-                  style={styles.card}
+                  source={require('../../assets/defaultVehicle.jpg')}
+                  style={styles.cardImage}
                 />
               </TouchableOpacity>
             );
@@ -138,7 +131,7 @@ const Home = ({navigation}) => {
       <View style={styles.imageWrapper}>
         <Text style={styles.title}>Bike</Text>
         <Text
-          style={styles.more}
+          style={styles.moreDetail}
           onPress={() => {
             const param = {
               type: 'Cars',
@@ -148,9 +141,9 @@ const Home = ({navigation}) => {
           View More >
         </Text>
       </View>
-      {cars.length > 0 && isLoading ? (
+      {bikes.length > 0 && isWait ? (
         <FlatList
-          data={cars}
+          data={bikes}
           horizontal={true}
           renderItem={({item: vehicles}) => {
             return (
@@ -162,10 +155,8 @@ const Home = ({navigation}) => {
                   navigation.navigate('Detail', param);
                 }}>
                 <Image
-                  source={{
-                    uri: `${process.env.API_REACT_NATIVE}`,
-                  }}
-                  style={styles.card}
+                  source={require('../../assets/defaultVehicle.jpg')}
+                  style={styles.cardImage}
                 />
               </TouchableOpacity>
             );

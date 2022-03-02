@@ -76,14 +76,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFCD61',
     padding: 10,
     borderRadius: 15,
-    height: 60,
+    height: 50,
     textAlign: 'center',
   },
   login: {
     color: '#000000',
     fontWeight: 'bold',
-    fontSize: 24,
-    lineHeight: 35,
+    fontSize: 18,
+    marginBottom: 'auto',
+    marginTop: 'auto',
+    // lineHeight: 35,
   },
 });
 

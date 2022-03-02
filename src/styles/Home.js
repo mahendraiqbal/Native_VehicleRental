@@ -16,14 +16,14 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
     flex: 1,
   },
-  more: {
+  moreDetail: {
     fontSize: 14,
     fontWeight: '700',
     color: '#393939',
     marginVertical: '6%',
     marginRight: '5%',
   },
-  card: {
+  cardImage: {
     width: 250,
     height: 150,
     borderRadius: 12,

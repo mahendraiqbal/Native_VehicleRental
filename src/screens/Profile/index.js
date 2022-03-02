@@ -13,97 +13,57 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import styles from '../../styles/Profile';
 
-const Profile = ({navigation, route}) => {
-  const [input, setInput] = useState('');
-  const counter = useSelector(state => state.counter);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const getInputFromStorage = async () => {
-      try {
-        const inputFromStorage = await AsyncStorage.getItem('text-input');
-        if (inputFromStorage) {
-          navigation.navigate('Home');
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getInputFromStorage();
-  }, [navigation]);
-  // console.log('params', route.params);
-  // const {firstName, lastName, profile} = route.params;
+const Profile = ({navigation}) => {
+  // console.log(state)
   return (
-    <ScrollView>
-      <Text>Profile</Text>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Home')}
-        style={styles.backToHomeButton}>
-        <Text>Go To Home</Text>
-      </TouchableOpacity>
-      {route.params &&
-        Object.keys(route.params).every(value => {
-          const re = /firstName|lastName|profile|id/g;
-          // console.log(value);
-          return re.test(value);
-        }) && (
-          <View>
-            <Text>
-              {route.params.firstName.concat(' ', route.params.lastName)}
-            </Text>
-            <Image
-              source={{
-                uri: route.params.profile,
-              }}
-              style={styles.profileImage}
-            />
-          </View>
-        )}
-      <View>
-        <TextInput
-          style={{borderColor: '#000', borderWidth: 2, marginVertical: 20}}
-          value={input}
-          onChangeText={text => {
-            setInput(text);
-          }}
-        />
-        <Button
-          title="Simpan"
-          onPress={async () => {
-            try {
-              AsyncStorage.setItem('text-input', input);
-            } catch (err) {
-              console.error(err);
-            }
-          }}
-        />
+    <>
+      <ScrollView>
+        <View style={styles.imageWrapper}>
+          <Image
+            source={require('../../assets/man.png')}
+            style={styles.imageProfile}
+          />
+          <Text style={styles.nameUser}>NAME</Text>
+        </View>
+        <TouchableOpacity style={styles.btnEdit}>
+          <Text style={styles.menu}>Your favourites</Text>
+          <Image
+            source={require('../../assets/arrow-left.png')}
+            style={styles.arrowIcon}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btnEdit}>
+          <Text style={styles.menu}>FAQ</Text>
+          <Image
+            source={require('../../assets/arrow-left.png')}
+            style={styles.arrowIcon}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btnEdit}>
+          <Text style={styles.menu}>Help</Text>
+          <Image
+            source={require('../../assets/arrow-left.png')}
+            style={styles.arrowIcon}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.btnEdit}
+          onPress={() => {
+            navigation.navigate('UpdateProfile');
+          }}>
+          <Text style={styles.menu}>Update Profile</Text>
+          <Image
+            source={require('../../assets/arrow-left.png')}
+            style={styles.arrowIcon}
+          />
+        </TouchableOpacity>
         <View>
-          <Text>Counter: {counter}</Text>
-          <TouchableOpacity
-            style={styles.backToHomeButton}
-            onPress={() =>
-              dispatch({
-                type: 'UP',
-              })
-            }>
-            <Text>UP</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.backToHomeButton}
-            onPress={() =>
-              dispatch({
-                type: 'DOWN',
-              })
-            }>
-            <Text>DOWN</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
-            style={styles.backToHomeButton}>
-            <Text>Go To Home</Text>
+          <TouchableOpacity style={styles.btnLgt}>
+            <Text style={styles.logout}>Log out</Text>
           </TouchableOpacity>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 };
 

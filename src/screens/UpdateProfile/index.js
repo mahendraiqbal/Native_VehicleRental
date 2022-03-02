@@ -1,12 +1,12 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 
-const Chat = () => {
+const UpdateProf = () => {
   return (
     <View>
-      <Text>Chat</Text>
+      <Text>Update Profile</Text>
     </View>
   );
 };
 
-export default Chat;
+export default UpdateProf;
