@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     height: 50,
     textAlign: 'center',
-    marginTop: '50%',
+    marginTop: '20%',
   },
   logout: {
     color: '#000000',
@@ -60,6 +60,47 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 'auto',
     marginTop: 'auto',
+  },
+  //update profile
+  title: {
+    flexDirection: 'row',
+  },
+  imageUpdate: {
+    flexDirection: 'row',
+  },
+  buttonTake: {
+    color: '#FFF',
+    backgroundColor: '#393939',
+    height: 40,
+    borderRadius: 10,
+    width: '100%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  textTake: {
+    textAlign: 'center',
+    fontSize: 12,
+    marginBottom: 'auto',
+    marginTop: 'auto',
+    fontWeight: '900',
+    color: '#ffcd61',
+  },
+  buttonBrowse: {
+    marginTop: '5%',
+    color: '#FFF',
+    backgroundColor: '#ffcd61',
+    height: 40,
+    borderRadius: 10,
+    width: '100%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  textBrowse: {
+    textAlign: 'center',
+    fontSize: 12,
+    marginBottom: 'auto',
+    marginTop: 'auto',
+    fontWeight: '900',
   },
 });
 

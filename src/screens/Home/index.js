@@ -12,23 +12,22 @@ import axios from 'axios';
 
 import {allVehicle} from '../../modules/vehicles';
 import styles from '../../styles/Home';
+import {useSelector} from 'react-redux';
 
 const Home = ({navigation}) => {
-  // const [popular, setPopular] = useState([]);
   const [cars, setCars] = useState([]);
   const [motorbikes, setMotorbikes] = useState([]);
   const [bikes, setBikes] = useState([]);
   const [isWait, setIsWait] = useState(false);
-
-  // console.log('car', vehicles);
+  const roles = useSelector(state => state.auth.userData.roles_id);
+  // console.log('cek roles', roles);
 
   const getVehicleType = () => {
     allVehicle()
       .then(
         axios.spread((...res) => {
           setIsWait(true);
-          console.log('cek', res[0].data.result.data);
-          // setPopular(res[0].data.result.data);
+          // console.log('cek', res[2].data.result.data);
           setCars(res[0].data.result.data);
           setMotorbikes(res[1].data.result.data);
           setBikes(res[2].data.result.data);
@@ -44,15 +43,26 @@ const Home = ({navigation}) => {
     <ScrollView>
       <ImageBackground
         source={require('../../assets/bg-home.png')}
-        style={styles.jumbotron}
-      />
+        style={styles.jumbotron}>
+        {roles === 3 ? (
+          <TouchableOpacity
+            style={styles.addProduct}
+            onPress={() => {
+              navigation.navigate('AddProduct');
+            }}>
+            <Text style={styles.textAdd}>Add new item</Text>
+          </TouchableOpacity>
+        ) : (
+          <></>
+        )}
+      </ImageBackground>
       <View style={styles.imageWrapper}>
         <Text style={styles.title}>Cars</Text>
         <Text
           style={styles.moreDetail}
           onPress={() => {
             const param = {
-              type: 'Cars',
+              type: 'Car',
             };
             navigation.navigate('Category', param);
           }}>
@@ -134,7 +144,7 @@ const Home = ({navigation}) => {
           style={styles.moreDetail}
           onPress={() => {
             const param = {
-              type: 'Cars',
+              type: 'Bicycle',
             };
             navigation.navigate('Category', param);
           }}>

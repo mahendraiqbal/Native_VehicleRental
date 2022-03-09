@@ -15,7 +15,14 @@ import Detail from './screens/Detail';
 import Search from './screens/Search';
 import Profile from './screens/Profile';
 import Chat from './screens/Chat';
-import UpdateProf from './screens/UpdateProfile';
+// import UpdateProf from './screens/UpdateProfile';
+import AddProduct from './screens/AddProduct';
+import Payment from './screens/Payment/Payment';
+import SecondPayment from './screens/Payment/SecondPayment';
+import LastPayment from './screens/Payment/LastPayment';
+import FinishPayment from './screens/Payment/FinishPayment';
+import UpdateProfile from './screens/Profile/UpdateProfile';
+import History from './screens/History';
 // import styles from './styles/SignUp';
 
 const Stack = createStackNavigator();
@@ -70,8 +77,8 @@ const BottomTab = () => (
               source={require('./assets/search.png')}
               resizeMode="cover"
               style={{
-                width: 30,
-                height: 30,
+                width: 60,
+                height: 60,
                 tintColor: focused && '#ffcd61',
               }}
             />
@@ -136,7 +143,13 @@ const Router = () => (
     <Stack.Screen name="BotTab" component={BottomTab} />
     <Stack.Screen name="Category" component={Category} />
     <Stack.Screen name="Detail" component={Detail} />
-    <Stack.Screen name="UpdateProfile" component={UpdateProf} />
+    <Stack.Screen name="AddProduct" component={AddProduct} />
+    <Stack.Screen name="Payment" component={Payment} />
+    <Stack.Screen name="SecondPayment" component={SecondPayment} />
+    <Stack.Screen name="LastPayment" component={LastPayment} />
+    <Stack.Screen name="FinishPayment" component={FinishPayment} />
+    <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
+    <Stack.Screen name="History" component={History} />
   </Stack.Navigator>
 );
 

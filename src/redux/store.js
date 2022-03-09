@@ -4,14 +4,14 @@ import rpm from 'redux-promise-middleware';
 import {persistStore, persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import reducers from './reducers';
+import rootReducer from './reducers';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   whitelist: ['auth'],
 };
-const pReducer = persistReducer(persistConfig, reducers);
+const pReducer = persistReducer(persistConfig, rootReducer);
 const enhancers = applyMiddleware(rpm, logger);
 export const store = createStore(pReducer, enhancers);
 export const persistor = persistStore(store);

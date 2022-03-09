@@ -7,3 +7,9 @@ export const loginAction = body => {
     payload: login(body),
   };
 };
+
+export const logoutAction = () => {
+  return {
+    type: ACTION_STRING.logoutAuth,
+  };
+};

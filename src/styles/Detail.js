@@ -82,5 +82,29 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
     // height: 60,
   },
+  counter: {
+    fontSize: 17,
+    fontWeight: '900',
+    margin: 10,
+    backgroundColor: '#FFCD61',
+    borderRadius: 12,
+    width: 25,
+    height: 25,
+    paddingLeft: 8,
+  },
+  textCounter: {
+    fontSize: 17,
+    fontWeight: '900',
+    margin: 10,
+  },
+  counterWrapper: {
+    flexDirection: 'row',
+  },
+  btnCounterWrapper: {
+    marginLeft: '27%',
+    flex: 1,
+    textAlign: 'right',
+    flexDirection: 'row',
+  },
 });
 export default styles;

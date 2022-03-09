@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   jumbotron: {
-    width: 390,
+    width: 370,
     height: 250,
   },
   imageWrapper: {
@@ -36,6 +36,23 @@ const styles = StyleSheet.create({
     width: 250,
     height: 150,
     marginLeft: 50,
+  },
+  addProduct: {
+    marginTop: '40%',
+    color: '#FFF',
+    backgroundColor: '#ffcd61',
+    height: 40,
+    borderRadius: 10,
+    width: '80%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  textAdd: {
+    textAlign: 'center',
+    fontSize: 18,
+    marginBottom: 'auto',
+    marginTop: 'auto',
+    fontWeight: '900',
   },
 });
 

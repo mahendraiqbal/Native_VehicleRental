@@ -4,8 +4,8 @@ import {ActionType} from 'redux-promise-middleware';
 const initialState = {
   userData: {
     token: '',
-    pin: '',
     id: null,
+    roles_id: null,
   },
 
   isPending: false,
@@ -26,12 +26,13 @@ const authReducer = (prevState = initialState, action) => {
         isRejected: false,
       };
     case loginAuth.concat('_', Fulfilled):
-      // console.log(data)
+      console.log('fulfilled', data);
       const data = action.payload.data;
       const userData = {
         ...prevState.userData,
-        token: data.result.result.token,
+        token: data.result.token,
         roles_id: data.result.payload.roles_id,
+        id: data.result.payload.id,
       };
       return {
         ...prevState,
