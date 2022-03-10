@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {
   ScrollView,
   Text,
@@ -11,7 +12,8 @@ import {Picker} from '@react-native-picker/picker';
 
 import styles from '../../styles/Payment';
 
-const Payment = ({navigation}) => {
+const Payment = ({navigation, route}) => {
+  console.log(route);
   return (
     <ScrollView>
       <View style={styles.title}>

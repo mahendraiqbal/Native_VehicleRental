@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import authReducer from './auth';
-import {ACTION_STRING} from '../actions/actionString';
+// import {ACTION_STRING} from '../actions/actionString';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const reducers = combineReducers({

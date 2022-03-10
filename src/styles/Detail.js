@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     width: '80%',
     marginLeft: 'auto',
     marginRight: 'auto',
+    marginBottom: '5%',
   },
   textLogin: {
     textAlign: 'center',
@@ -105,6 +106,61 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'right',
     flexDirection: 'row',
+  },
+  days: {
+    width: 30,
+    padding: 10,
+    // justifyContent: 'flex-end',
+    flexDirection: 'row',
+    // marginLeft: '40%',
+  },
+  menuTitle: {
+    fontSize: 17,
+    fontWeight: '900',
+    margin: 10,
+    paddingLeft: '6%',
+  },
+  // counter: {
+  //   fontSize: 17,
+  //   fontWeight: '900',
+  //   margin: 10,
+  //   backgroundColor: '#FFCD61',
+  //   borderRadius: 12,
+  //   width: 25,
+  //   height: 25,
+  //   paddingLeft: 8,
+  // },
+  counterText: {
+    fontSize: 17,
+    fontWeight: '900',
+    margin: 10,
+  },
+  // counterWrapper: {
+  //   flexDirection: 'row',
+  // },
+  // btnCounterWrapper: {
+  //   marginLeft: '27%',
+  //   flex: 1,
+  //   textAlign: 'right',
+  //   flexDirection: 'row',
+  // },
+  dropdownMenu: {
+    width: 150,
+    marginLeft: 20,
+  },
+  datePicker: {
+    width: 150,
+    marginLeft: 45,
+    marginTop: 10,
+    backgroundColor: 'white',
+    color: 'black',
+  },
+  datePickerBtn: {
+    fontSize: 16,
+    // fontWeight : 600,
+    backgroundColor: 'white',
+    color: 'black',
+    padding: 5,
   },
 });
 export default styles;

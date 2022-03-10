@@ -21,7 +21,8 @@ export const getVehicleById = id => {
   return axios.get(url);
 };
 
-export const getVehicleType = (prevPage, type) => {
-  const url = `${process.env.API_REACT_NATIVE}vehicles?${type}?page=${prevPage}`;
+export const getVehicleType = type => {
+  const url = `${process.env.API_REACT_NATIVE}vehicles?type=${type}&page=1&limit=5`;
+  console.log('cek url', url);
   return axios.get(url);
 };
