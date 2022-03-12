@@ -61,10 +61,14 @@ const styles = StyleSheet.create({
   //second payment
   imageWrapper: {
     height: 190,
-    width: 320,
+    width: 360,
     borderRadius: 10,
     marginTop: '5%',
     marginBottom: '4%',
+  },
+  imageVehicle: {
+    width: '100%',
+    height: 190,
   },
   pricing: {
     flexDirection: 'row',

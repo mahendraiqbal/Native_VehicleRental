@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   },
   datePickerBtn: {
     fontSize: 16,
-    // fontWeight : 600,
+    fontWeight: '600',
     backgroundColor: 'white',
     color: 'black',
     padding: 5,

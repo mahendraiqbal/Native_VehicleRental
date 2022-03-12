@@ -3,10 +3,10 @@ import axios from 'axios';
 // const urlLogin = `${process.env.NATIVE}auth`;
 
 export const login = body => {
-  console.log(body);
-  console.log(process.env.NATIVE);
+  // console.log(body);
+  // console.log(process.env.NATIVE);
   const urlLogin = `${process.env.API_REACT_NATIVE}auth`;
-  console.log('hallo oi', process.env.API_REACT_NATIVE);
+  // console.log('hallo oi', process.env.API_REACT_NATIVE);
   return axios.post(urlLogin, body);
 };
 
