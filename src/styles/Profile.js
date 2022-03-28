@@ -2,9 +2,12 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   imageProfile: {
+    // position: 'absolute',
     width: 80,
     height: 80,
     borderRadius: 50,
+    // backgroundColor: '#000',
+    resizeMode: 'cover',
   },
   imageWrapper: {
     // marginRight: 'auto',
@@ -52,7 +55,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     height: 50,
     textAlign: 'center',
-    marginTop: '20%',
+    marginTop: '50%',
+    marginBottom: '5%',
   },
   logout: {
     color: '#000000',
@@ -64,9 +68,11 @@ const styles = StyleSheet.create({
   //update profile
   title: {
     flexDirection: 'row',
+    marginBottom: '5%',
   },
   imageUpdate: {
     flexDirection: 'row',
+    backgroundColor: '#000',
   },
   buttonTake: {
     color: '#FFF',
@@ -101,6 +107,76 @@ const styles = StyleSheet.create({
     marginBottom: 'auto',
     marginTop: 'auto',
     fontWeight: '900',
+  },
+  iconButton: {
+    marginLeft: '5%',
+    marginTop: '5%',
+  },
+  titleUpdate: {
+    marginTop: '5%',
+    marginLeft: '5%',
+    fontSize: 17,
+  },
+  radioButtonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 45,
+  },
+  radioButton: {
+    height: 20,
+    width: 20,
+    backgroundColor: '#F8F8F8',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#E6E6E6',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  radioButtonIcon: {
+    height: 14,
+    width: 14,
+    borderRadius: 7,
+    backgroundColor: '#98CFB6',
+  },
+  radioButtonText: {
+    fontSize: 16,
+    marginLeft: 16,
+  },
+  buttonRadio: {
+    flexDirection: 'row',
+    // backgroundColor: 'red',
+  },
+  radioCheck: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '50%',
+    // backgroundColor: 'blue',
+  },
+  modal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.6)',
+  },
+  content: {
+    backgroundColor: '#fff',
+    height: 180,
+    width: 325,
+    borderRadius: 12,
+  },
+  modalTxt: {
+    color: '#000',
+    textAlign: 'center',
+    paddingTop: '5%',
+    fontSize: 20,
+  },
+  modalBtn: {
+    width: '40%',
+    height: '60%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 12,
   },
 });
 

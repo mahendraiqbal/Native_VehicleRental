@@ -20,14 +20,15 @@ const Home = ({navigation}) => {
   const [bikes, setBikes] = useState([]);
   const [isWait, setIsWait] = useState(false);
   const roles = useSelector(state => state.auth.userData.roles_id);
-  // console.log('cek roles', roles);
+  console.log('cek roles', roles);
+  const defaultVehicle = require('../../assets/defaultVehicles.png');
 
   const getVehicleType = () => {
     allVehicle()
       .then(
         axios.spread((...res) => {
           setIsWait(true);
-          // console.log('cek', res[2].data.result.data);
+          // console.log('cek image', res[0].data.result.data[0].images);
           setCars(res[0].data.result.data);
           setMotorbikes(res[1].data.result.data);
           setBikes(res[2].data.result.data);
@@ -35,6 +36,9 @@ const Home = ({navigation}) => {
       )
       .catch(err => console.log(err));
   };
+
+  // console.log('cek car', cars[0].images);
+  // const images = {uri: `${process.env.API_REACT_NATIVE}`}
 
   useEffect(() => {
     getVehicleType();
@@ -74,6 +78,7 @@ const Home = ({navigation}) => {
           data={cars}
           horizontal={true}
           renderItem={({item: vehicles}) => {
+            // console.log('neckdeep', JSON.parse(vehicles.images)[0]);
             return (
               <TouchableOpacity
                 onPress={() => {
@@ -83,7 +88,11 @@ const Home = ({navigation}) => {
                   navigation.navigate('Detail', param);
                 }}>
                 <Image
-                  source={require('../../assets/defaultVehicle.jpg')}
+                  source={{
+                    uri: `${process.env.API_REACT_NATIVE}images/vehicle/${
+                      JSON.parse(vehicles.images)[0]
+                    }`,
+                  }}
                   style={styles.cardImage}
                 />
               </TouchableOpacity>
@@ -124,7 +133,11 @@ const Home = ({navigation}) => {
                   navigation.navigate('Detail', param);
                 }}>
                 <Image
-                  source={require('../../assets/defaultVehicle.jpg')}
+                  source={{
+                    uri: `${process.env.API_REACT_NATIVE}images/vehicle/${
+                      JSON.parse(vehicles.images)[0]
+                    }`,
+                  }}
                   style={styles.cardImage}
                 />
               </TouchableOpacity>
@@ -165,7 +178,11 @@ const Home = ({navigation}) => {
                   navigation.navigate('Detail', param);
                 }}>
                 <Image
-                  source={require('../../assets/defaultVehicle.jpg')}
+                  source={{
+                    uri: `${process.env.API_REACT_NATIVE}images/vehicle/${
+                      JSON.parse(vehicles.images)[0]
+                    }`,
+                  }}
                   style={styles.cardImage}
                 />
               </TouchableOpacity>

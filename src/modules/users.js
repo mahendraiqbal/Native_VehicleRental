@@ -8,3 +8,12 @@ export const userProfile = token => {
     },
   });
 };
+
+export const updateProfile = (body, token) => {
+  const url = process.env.API_REACT_NATIVE + 'users';
+  return axios.patch(url, body, {
+    headers: {
+      'x-access-token': token,
+    },
+  });
+};

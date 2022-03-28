@@ -23,7 +23,7 @@ const LastPayment = ({navigation, route}) => {
   const [vehicles, setVehicles] = useState([]);
   const [code, setCode] = useState(null);
 
-  const price = route.params.selectedDay * vehicles.price;
+  const price = route.params.counter * vehicles.price;
 
   const getDetail = () => {
     const id = route.params.id;
@@ -70,6 +70,7 @@ const LastPayment = ({navigation, route}) => {
     payment(body)
       .then(res => {
         console.log(res);
+        console.log(res.data);
       })
       .catch(err => {
         console.log(err);
@@ -77,38 +78,51 @@ const LastPayment = ({navigation, route}) => {
   };
   return (
     <ScrollView>
-      <View style={styles.title}>
-        <Image source={require('../../assets/back.png')} />
-        <Text>Payment</Text>
-      </View>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('SecondPayment');
+        }}>
+        <View style={styles.title}>
+          <Image
+            source={require('../../assets/back.png')}
+            style={styles.iconBack}
+          />
+          <Text style={styles.titlePayment}>Payment</Text>
+        </View>
+      </TouchableOpacity>
       <Image
         source={require('../../assets/LastStepper.png')}
         style={styles.stepper}
       />
-      <Text>Payment Code</Text>
-      <Text>67865758</Text>
-      <Text>
+      <Text style={styles.codePayment}>Payment Code</Text>
+      <Text style={styles.codeText}>67865758</Text>
+      <Text style={styles.infoCode}>
         Insert your payment code while you transfer booking order Pay before :{' '}
       </Text>
-      <Text>1:59:34</Text>
-      <Text>Bank account information</Text>
-      <Text>0200-12312-223-4</Text>
-      <Text>{vehicles.brand}</Text>
-      <Text>Boooking Code : {code}</Text>
-      <Text>Use booking code to pick up your vehicle</Text>
+      <Text style={styles.timer}>1:59:34</Text>
+      <Text style={styles.infoBank}>Bank account information :</Text>
+      <Text style={styles.bankCode}>0200-12312-223-4</Text>
+      <Text style={styles.brand}>{vehicles.brand}</Text>
+      <Text style={styles.brand}>Booking Code : {code}</Text>
+      <Text style={styles.useBooking}>
+        Use booking code to pick up your vehicle
+      </Text>
       <TouchableOpacity style={styles.copy}>
         <Text style={styles.textCopy}>Copy Payment * Booking Code</Text>
       </TouchableOpacity>
-      <Text>Order details</Text>
-      <Text>
+      <Text style={styles.info}>Order details</Text>
+      <Text style={styles.info}>
         {route.params.counter} {vehicles.brand}
       </Text>
-      <Text>{route.params.payment}</Text>
-      <Text>{route.params.selectedDay} days</Text>
-      <Text>{withoutTime} to Jan 22 2021</Text>
+      <Text style={styles.info}>{route.params.payment}</Text>
+      <Text style={styles.info}>{route.params.selectedDay} days</Text>
+      <Text style={styles.info}>{withoutTime} to Jan 22 2021</Text>
       <View style={styles.pricing}>
-        <Text>Rp. {price}</Text>
-        <Image source={require('../../assets/Pricing.png')} />
+        <Text style={styles.info}>Rp. {price}</Text>
+        <Image
+          source={require('../../assets/Pricing.png')}
+          style={styles.iconInfoo}
+        />
       </View>
       <TouchableOpacity
         style={styles.buttonFinish}
@@ -116,6 +130,7 @@ const LastPayment = ({navigation, route}) => {
           const param = {
             ...route.params,
           };
+          console.log('cek param', param);
           navigation.navigate('FinishPayment', param);
           submitPayment();
         }}>

@@ -1,158 +1,183 @@
-// import {
-//   ScrollView,
-//   View,
-//   Text,
-//   Image,
-//   TouchableOpacity,
-//   TextInput,
-// } from 'react-native';
-// import React from 'react';
-
-// import styles from '../../styles/AddProduct';
-
-// const AddProduct = () => {
-//   return (
-//     <ScrollView>
-//       <View style={styles.titleWrapper}>
-//         <Image source={require('../../assets/back.png')} />
-//         <Text>Add new item</Text>
-//         <TouchableOpacity>
-//           <Text>Cancel</Text>
-//         </TouchableOpacity>
-//       </View>
-//       <TextInput
-//         style={styles.inputProduct}
-//         placeholder="Type product name min. 30 characters"
-//       />
-//       <TextInput style={styles.inputPrice} placeholder="Type product price" />
-//       <Text>Description</Text>
-//       <TextInput
-//         style={styles.inputDescribe}
-//         placeholder="Describe your product min. 150 characters"
-//       />
-//       <Text>Location</Text>
-//       <TouchableOpacity style={styles.login}>
-//         <Text style={styles.textLogin}>Save Product</Text>
-//       </TouchableOpacity>
-//     </ScrollView>
-//   );
-// };
-
-// export default AddProduct;
-
-import React, {useState} from 'react';
-// Import required components
 import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
+  ScrollView,
   View,
-  TouchableOpacity,
+  Text,
   Image,
+  TouchableOpacity,
+  TextInput,
+  ToastAndroid,
 } from 'react-native';
+import React, {useState} from 'react';
+import {Picker} from '@react-native-picker/picker';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {postVehicle} from '../../modules/vehicles';
+import {useSelector} from 'react-redux';
+import RNFetchBlob from 'rn-fetch-blob';
 
-// Import Image Picker
-import ImagePicker from 'react-native-image-picker';
+import styles from '../../styles/AddProduct';
 
-const AddProduct = () => {
-  const [filePath, setFilePath] = useState({});
+const AddProduct = ({navigation}) => {
+  const [qty, setQty] = useState(1);
+  const [images, setImages] = useState('');
+  const [name, setName] = useState();
+  const [price, setPrice] = useState();
+  const [description, setDescription] = useState();
+  const [city, setCity] = useState();
+  const [type, setType] = useState();
 
-  const chooseFile = () => {
-    let options = {
-      title: 'Select Image',
-      customButtons: [
-        {
-          name: 'customOptionKey',
-          title: 'Choose Photo from Custom Option',
-        },
-      ],
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    ImagePicker.showImagePicker(options, response => {
-      console.log('Response = ', response);
+  const token = useSelector(state => state.auth.userData.token);
 
+  const addCounter = () => {
+    const newCounter = qty + 1;
+    setQty(newCounter);
+  };
+  const subCounter = () => {
+    const newCounter = qty - 1 < 0 ? 0 : qty - 1;
+    setQty(newCounter);
+  };
+
+  const openGallery = () => {
+    launchImageLibrary({noData: true}, response => {
+      console.log(response);
       if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-        alert(response.customButton);
-      } else {
-        let source = response;
-        // You can also display the image using data:
-        // let source = {
-        //   uri: 'data:image/jpeg;base64,' + response.data
-        // };
-        setFilePath(source);
+        return;
+      }
+      if (response) {
+        setImages(response.assets[0]);
       }
     });
   };
 
+  const handleUpload = () => {
+    console.log('mana token', token);
+    RNFetchBlob.fetch(
+      'POST',
+      // 'https://vehicle-rental-aws.herokuapp.com/vehicles',
+      `${process.env.API_REACT_NATIVE}vehicles`,
+      {
+        'x-access-token': token,
+        'Content-Type': 'multipart/form-data',
+      },
+      [
+        {
+          name: 'images',
+          type: images.type,
+          filename: images.fileName,
+          data: RNFetchBlob.wrap(images.uri),
+        },
+        {name: 'name', data: name},
+        {name: 'type', data: type},
+        {name: 'description', data: description},
+        {name: 'city', data: city},
+        {name: 'price', data: price},
+        {name: 'qty', data: JSON.stringify(qty)},
+      ],
+    )
+      .then(res => {
+        console.log(res);
+        navigation.navigate('Home');
+        ToastAndroid.show('Success Add Vehicle', ToastAndroid.SHORT);
+      })
+      .catch(err => {
+        console.log(err);
+        ToastAndroid.show('Fail Add Vehicle', ToastAndroid.SHORT);
+      });
+  };
+
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Text style={styles.titleText}>
-        Example of Image Picker in React Native
-      </Text>
-      <View style={styles.container}>
-        {/*<Image 
-          source={{ uri: filePath.path}} 
-          style={{width: 100, height: 100}} />*/}
-        <Image
-          source={{
-            uri: 'data:image/jpeg;base64,' + filePath.data,
-          }}
-          style={styles.imageStyle}
-        />
-        <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
-        <Text style={styles.textStyle}>{filePath.uri}</Text>
-        {/*
-          <Button
-            title="Choose File"
-            onPress={chooseFile} />
-        */}
-        <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles.buttonStyle}
-          onPress={chooseFile}>
-          <Text style={styles.textStyle}>Choose Image</Text>
+    <ScrollView>
+      <View style={styles.titleWrapper}>
+        <Image source={require('../../assets/back.png')} style={styles.icon} />
+        <Text style={styles.title}>Add new item</Text>
+        <TouchableOpacity style={styles.cancel}>
+          <Text>Cancel</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+      <View style={styles.imageUpdate}>
+        {images != null && (
+          <Image source={{uri: images.uri}} style={styles.imageProfile} />
+        )}
+        <View>
+          <TouchableOpacity style={styles.buttonBrowse} onPress={openGallery}>
+            <Text style={styles.textBrowse}>Browse from gallery</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <TextInput
+        style={styles.inputProduct}
+        placeholder="Type product name min. 30 characters"
+        onChangeText={text => setName(text)}
+      />
+      <TextInput
+        style={styles.inputPrice}
+        placeholder="Type product price"
+        onChangeText={text => setPrice(text)}
+      />
+      <Text style={styles.inputText}>Description</Text>
+      <TextInput
+        style={styles.inputDescribe}
+        placeholder="Describe your product min. 150 characters"
+        onChangeText={text => setDescription(text)}
+      />
+      <View>
+        <Text style={styles.inputText}>Location</Text>
+        <View style={styles.selectWrapper}>
+          <Picker
+            selectedValue={city}
+            onValueChange={(itemValue, itemIndex) => {
+              setCity(itemValue);
+            }}>
+            <Picker.Item label="Choose Location" value={'Choose Location'} />
+            <Picker.Item label="Temanggung" value={'Temanggung'} />
+            <Picker.Item label="Magelang" value={'Magelang'} />
+            <Picker.Item label="Parakan" value={'Parakan'} />
+            <Picker.Item label="Klaten" value={'Klaten'} />
+            <Picker.Item label="Yogyakarta" value={'Yogyakarta'} />
+            <Picker.Item label="Wonosobo" value={'Wonosobo'} />
+            <Picker.Item label="+ Add Category" value={'AddCity'} />
+          </Picker>
+        </View>
+      </View>
+
+      <View>
+        <Text style={styles.inputText}>Add to</Text>
+        <View style={styles.selectWrapper}>
+          <Picker
+            selectedValue={type}
+            onValueChange={(itemValue, itemIndex) => {
+              setType(itemValue);
+            }}>
+            <Picker.Item label="Select Category" value={'Select Category'} />
+            <Picker.Item label="Car" value={'Car'} />
+            <Picker.Item label="Bike" value={'Bicycle'} />
+            <Picker.Item label="Motorbike" value={'Motorbike'} />
+            <Picker.Item label="HomePage (Popular)" value={'Popular'} />
+            <Picker.Item label="+ Add Category" value={'AddVehicle'} />
+          </Picker>
+        </View>
+      </View>
+
+      <View style={styles.counterWrapper}>
+        <View>
+          <Text style={styles.inputStock}>Stock :</Text>
+        </View>
+        <View style={styles.btnCounterWrapper}>
+          <TouchableOpacity onPress={subCounter}>
+            <Text style={styles.counter}>-</Text>
+          </TouchableOpacity>
+          <Text style={styles.textCounter}>{qty}</Text>
+          <TouchableOpacity onPress={addCounter}>
+            <Text style={styles.counter}>+</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <TouchableOpacity style={styles.login}>
+        <Text style={styles.textLogin} onPress={handleUpload}>
+          Save Product
+        </Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 
 export default AddProduct;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-  },
-  titleText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    paddingVertical: 20,
-  },
-  textStyle: {
-    padding: 10,
-    color: 'black',
-  },
-  buttonStyle: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: '#DDDDDD',
-    padding: 5,
-  },
-  imageStyle: {
-    width: 200,
-    height: 200,
-    margin: 5,
-  },
-});

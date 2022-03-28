@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ImageBackground,
   StyleSheet,
@@ -9,19 +9,42 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import {forgotPass} from '../../modules/auth';
+
 const ForgotPass = ({navigation}) => {
+  const [email, setEmail] = useState('');
+
+  const forgotPassword = async () => {
+    try {
+      const body = {
+        email: email,
+      };
+      const result = await forgotPass(body);
+      console.log('resultnya', result.data);
+      if (result.data.result) {
+        navigation.navigate('CheckOtp');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require('../../assets/bg-home.png')}
+        source={require('../../assets/bg-forgot.jpeg')}
         resizeMode="cover"
         style={styles.image}>
         <Text style={styles.text}>THAT'S OKAY, WE GOT YOUR BACK</Text>
         <SafeAreaView>
-          <TextInput style={styles.input} placeholder="email" />
+          <TextInput
+            style={styles.input}
+            placeholder="email"
+            onChangeText={text => setEmail(text)}
+          />
         </SafeAreaView>
         <View style={styles.containerFp}>
-          <TouchableOpacity style={styles.btnLgn}>
+          <TouchableOpacity style={styles.btnLgn} onPress={forgotPassword}>
             <Text style={styles.login}> Send Code </Text>
           </TouchableOpacity>
         </View>

@@ -7,37 +7,25 @@ const Chat = () => {
     <ScrollView>
       <View style={styles.title}>
         <Image source={require('../../assets/back.png')} />
-        <Text>Chat</Text>
+        <Text style={styles.titleChat}>Chat</Text>
       </View>
       <View style={styles.search}>
         <Image source={require('../../assets/search.png')} />
-        <Text>Search Chat</Text>
+        <Text style={styles.searchChat}>Search Chat</Text>
       </View>
       <TouchableOpacity>
         <View style={styles.chat}>
-          <View>
-            <Text>Vespa Rental Jogja</Text>
+          <View style={styles.infoChat}>
+            <Text style={styles.userChat}>Vespa Rental Jogja</Text>
             <Text>Hey, there are 3 vespa left</Text>
           </View>
-          <View>
+          <View style={styles.infoNotif}>
             <Text>Just now</Text>
             <Text>1</Text>
           </View>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity>
-        <View style={styles.chat}>
-          <View>
-            <Text>Vespa Rental Jogja</Text>
-            <Text>Hey, there are 3 vespa left</Text>
-          </View>
-          <View>
-            <Text>Just now</Text>
-            <Text>1</Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-      <Text>You have no conversation left</Text>
+      <Text style={styles.noChat}>You have no conversation left</Text>
     </ScrollView>
   );
 };

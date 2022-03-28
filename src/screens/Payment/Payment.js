@@ -61,10 +61,18 @@ const Payment = ({navigation, route}) => {
   }, []);
   return (
     <ScrollView>
-      <View style={styles.title}>
-        <Image source={require('../../assets/back.png')} />
-        <Text>Payment</Text>
-      </View>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Detail');
+        }}>
+        <View style={styles.title}>
+          <Image
+            source={require('../../assets/back.png')}
+            style={styles.iconBack}
+          />
+          <Text style={styles.titlePayment}>Payment</Text>
+        </View>
+      </TouchableOpacity>
       <Image
         source={require('../../assets/Stepper.png')}
         style={styles.stepper}
@@ -78,7 +86,7 @@ const Payment = ({navigation, route}) => {
       </View>
       <View style={styles.wrapInfo}>
         <TextInput
-          // placeholder="Name"
+          placeholder="Name"
           defaultValue={userData.name}
           style={styles.cardNumber}
           onChangeText={text => setName(text)}

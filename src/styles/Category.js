@@ -1,4 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+const {width, height} = Dimensions.get('screen');
+
 const styles = StyleSheet.create({
   wrapper: {
     flexDirection: 'row',
@@ -12,6 +14,7 @@ const styles = StyleSheet.create({
   image: {
     width: 100,
     height: 100,
+    borderRadius: 10,
   },
   infoVehicle: {
     flexDirection: 'row',
@@ -36,6 +39,29 @@ const styles = StyleSheet.create({
   },
   price: {
     marginTop: '4%',
+  },
+  end: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: '#393939',
+    marginVertical: '5%',
+  },
+  loader: {
+    marginVertical: 10,
+  },
+  empty: {
+    textAlign: 'center',
+    fontSize: 15,
+  },
+  loadWrapper: {
+    height: height,
+    width: width,
+    backgroundColor: '#fff',
+  },
+  loading: {
+    width: '100%',
+    height: '40%',
+    marginTop: '50%',
   },
 });
 export default styles;

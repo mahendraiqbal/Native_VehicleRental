@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Image} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import SplashScreen from 'react-native-splash-screen';
 
 // import Home from './screens/Home';
 // import Profile from './screens/Profile';
@@ -23,6 +24,9 @@ import LastPayment from './screens/Payment/LastPayment';
 import FinishPayment from './screens/Payment/FinishPayment';
 import UpdateProfile from './screens/Profile/UpdateProfile';
 import History from './screens/History';
+import Filter from './screens/Filter';
+import CheckOtp from './screens/Forgot/checkOtp';
+import ResetPassword from './screens/Forgot/resetPassword';
 // import styles from './styles/SignUp';
 
 const Stack = createStackNavigator();
@@ -132,25 +136,33 @@ const BottomTab = () => (
   </Tab.Navigator>
 );
 
-const Router = () => (
-  <Stack.Navigator
-    screenOptions={{
-      headerShown: false,
-    }}>
-    <Stack.Screen name="Login" component={Login} />
-    <Stack.Screen name="SignUp" component={SignUp} />
-    <Stack.Screen name="Forgot" component={ForgotPass} />
-    <Stack.Screen name="BotTab" component={BottomTab} />
-    <Stack.Screen name="Category" component={Category} />
-    <Stack.Screen name="Detail" component={Detail} />
-    <Stack.Screen name="AddProduct" component={AddProduct} />
-    <Stack.Screen name="Payment" component={Payment} />
-    <Stack.Screen name="SecondPayment" component={SecondPayment} />
-    <Stack.Screen name="LastPayment" component={LastPayment} />
-    <Stack.Screen name="FinishPayment" component={FinishPayment} />
-    <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
-    <Stack.Screen name="History" component={History} />
-  </Stack.Navigator>
-);
+const Router = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="Forgot" component={ForgotPass} />
+      <Stack.Screen name="BotTab" component={BottomTab} />
+      <Stack.Screen name="Category" component={Category} />
+      <Stack.Screen name="Detail" component={Detail} />
+      <Stack.Screen name="AddProduct" component={AddProduct} />
+      <Stack.Screen name="Payment" component={Payment} />
+      <Stack.Screen name="SecondPayment" component={SecondPayment} />
+      <Stack.Screen name="LastPayment" component={LastPayment} />
+      <Stack.Screen name="FinishPayment" component={FinishPayment} />
+      <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
+      <Stack.Screen name="History" component={History} />
+      <Stack.Screen name="Filter" component={Filter} />
+      <Stack.Screen name="CheckOtp" component={CheckOtp} />
+      <Stack.Screen name="ResetPassword" component={ResetPassword} />
+    </Stack.Navigator>
+  );
+};
 
 export default Router;

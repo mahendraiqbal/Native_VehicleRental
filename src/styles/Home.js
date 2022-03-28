@@ -1,8 +1,9 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
+const width = Dimensions.get('screen').width;
 
 const styles = StyleSheet.create({
   jumbotron: {
-    width: 370,
+    width: width,
     height: 250,
   },
   imageWrapper: {

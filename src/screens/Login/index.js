@@ -5,9 +5,10 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
-import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {loginAction} from '../../redux/actions/auth';
 
@@ -18,44 +19,50 @@ const Login = ({navigation}) => {
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
 
-  // const submitLogin = async () => {
-  //   try {
-  //     const body = {
-  //       email: email,
-  //       password: password,
-  //     };
-  //     const result = await login(body);
-  //     console.log(body);
-  //     console.log('token', result.data.result.token);
-  //     dispatch(loginAction(body));
-  //     navigation.navigate('BotTab');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
+  // const submitLogin = () => {
+  //   const body = {
+  //     email: email,
+  //     password: password,
+  //   };
+  //   dispatch(loginAction(body));
+  //   console.log(body);
   // };
 
-  const emailHandler = e => {
-    setEmail(e);
-  };
-
-  const passHandler = e => {
-    setPassword(e);
-  };
+  // useEffect(() => {
+  //   if (auth.isFulfilled === true) {
+  //     navigation.navigate('BotTab');
+  //     ToastAndroid.show('Login Success', ToastAndroid.SHORT);
+  //     console.log('success');
+  //   }
+  //   if (auth.isRejected === true) {
+  //     console.log('fail');
+  //     ToastAndroid.show('Login Fail', ToastAndroid.SHORT);
+  //   }
+  // }, [auth, navigation]);
 
   const submitLogin = () => {
     const body = {
-      email,
-      password,
+      email: email.trim(),
+      password: password.trim(),
     };
-    // console.log(body);
-    dispatch(loginAction(body))
-      .then(res => {
-        // console.log('login', res);
-        navigation.navigate('BotTab');
-      })
-      .catch(err => console.log(err));
+    console.log('body', body);
+    dispatch(loginAction(body));
   };
+
+  useEffect(() => {
+    if (auth.isFulfilled === true) {
+      navigation.navigate('BotTab');
+      ToastAndroid.show('Login Success', ToastAndroid.SHORT);
+      console.log('success');
+    }
+    if (auth.isRejected === true) {
+      console.log('fail');
+      ToastAndroid.show('Login Fail', ToastAndroid.SHORT);
+    }
+  }, [auth, navigation]);
+
   return (
     <ImageBackground
       source={require('../../assets/bg-profile.png')}
@@ -67,12 +74,13 @@ const Login = ({navigation}) => {
           <TextInput
             style={styles.inputEmail}
             placeholder="Email"
-            onChangeText={emailHandler}
+            onChangeText={text => setEmail(text)}
           />
           <TextInput
             style={styles.inputPassword}
             placeholder="Password"
-            onChangeText={passHandler}
+            onChangeText={text => setPassword(text)}
+            secureTextEntry={true}
           />
         </KeyboardAvoidingView>
         <Text

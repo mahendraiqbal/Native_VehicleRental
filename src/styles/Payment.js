@@ -3,6 +3,16 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: 'row',
   },
+  iconBack: {
+    marginTop: '5%',
+    marginLeft: '5%',
+  },
+  titlePayment: {
+    fontSize: 20,
+    fontWeight: '900',
+    marginTop: '5%',
+    paddingLeft: '6%',
+  },
   stepper: {
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -15,6 +25,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: '#dfdede',
     marginTop: '4%',
+    borderWidth: 0,
   },
   selectWrapper: {
     height: 50,
@@ -49,6 +60,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginTop: '3%',
     borderRadius: 10,
+    marginBottom: '10%',
   },
   textSee: {
     color: '#393939',
@@ -57,6 +69,29 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     marginBottom: 'auto',
     textAlign: 'center',
+  },
+  cardNumber: {
+    borderWidth: 0,
+    borderRadius: 10,
+    fontSize: 17,
+  },
+  iconInfo: {
+    marginLeft: 'auto',
+    marginRight: '5%',
+    width: 30,
+    height: 30,
+    resizeMode: 'cover',
+    marginTop: '10%',
+  },
+  priceVehicle: {
+    marginTop: '10%',
+    fontSize: 24,
+    marginLeft: '5%',
+  },
+  info: {
+    marginLeft: '5%',
+    marginTop: '2%',
+    fontSize: 16,
   },
   //second payment
   imageWrapper: {
@@ -72,6 +107,64 @@ const styles = StyleSheet.create({
   },
   pricing: {
     flexDirection: 'row',
+    marginTop: '2%',
+  },
+  codePayment: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    fontSize: 15,
+  },
+  codeText: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    fontSize: 24,
+    marginTop: '1%',
+  },
+  infoCode: {
+    marginRight: '2%',
+    marginLeft: '2%',
+    textAlign: 'center',
+    fontSize: 13,
+    marginTop: '1%',
+  },
+  timer: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    fontSize: 18,
+    color: '#e60728',
+    marginTop: '1%',
+  },
+  infoBank: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    fontSize: 14,
+    marginTop: '1%',
+  },
+  bankCode: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    fontSize: 20,
+    marginTop: '1%',
+  },
+  brand: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    fontSize: 16,
+    marginTop: '1%',
+  },
+  useBooking: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    fontSize: 12,
+    marginTop: '1%',
+  },
+  iconInfoo: {
+    marginLeft: 'auto',
+    marginRight: '5%',
+    width: 30,
+    height: 30,
+    resizeMode: 'cover',
+    // marginTop: '10%',
   },
   //third payment
   copy: {
@@ -99,6 +192,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginTop: '3%',
     borderRadius: 10,
+    marginBottom: '10%',
   },
   textFinish: {
     color: '#393939',
@@ -133,6 +227,14 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     marginBottom: 'auto',
     textAlign: 'center',
+  },
+  successPayment: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: '5%',
+    marginBottom: '5%',
+    fontSize: 20,
+    color: '#0c7829',
   },
 });
 export default styles;

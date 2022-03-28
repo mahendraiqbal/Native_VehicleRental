@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import styles from '../../styles/SignUp';
+import {validateSignup} from '../../helpers/validation';
 
 import {register} from '../../modules/auth';
 
@@ -57,6 +58,7 @@ const Register = ({navigation}) => {
             style={styles.inputPassword}
             placeholder="Password"
             onChangeText={text => setPassword(text)}
+            secureTextEntry={true}
           />
         </KeyboardAvoidingView>
         <TouchableOpacity onPress={registerUser} style={styles.login}>

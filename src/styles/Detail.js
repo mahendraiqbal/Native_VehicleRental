@@ -1,13 +1,11 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+const width = Dimensions.get('screen').width;
+
 const styles = StyleSheet.create({
   jumbotron: {
-    width: 390,
+    width: width,
     height: 200,
     flexDirection: 'row',
-  },
-  arrow: {
-    width: 20,
-    height: 20,
   },
   title: {
     flexDirection: 'row',
@@ -23,6 +21,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     resizeMode: 'cover',
+    marginTop: '3%',
   },
   price: {
     marginLeft: '5%',
@@ -45,8 +44,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   selectBike: {
-    marginTop: '3%',
-    marginLeft: '5%',
+    // marginTop: '3%',
+    // marginLeft: '5%',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    marginLeft: '15%',
   },
   map: {
     marginLeft: '5%',
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   btnCounterWrapper: {
-    marginLeft: '27%',
+    marginLeft: '20%',
     flex: 1,
     textAlign: 'right',
     flexDirection: 'row',
